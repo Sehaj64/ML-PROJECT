@@ -6,12 +6,11 @@ import os
 
 app = Flask(__name__)
 
-# Construct the absolute path to the model files
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 model_path = os.path.join(basedir, '../models/random_forest_model.joblib')
 scaler_path = os.path.join(basedir, '../models/scaler.joblib')
 
-# Load the model and scaler
 model = joblib.load(model_path)
 scaler = joblib.load(scaler_path)
 
@@ -22,8 +21,8 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # --- Get Form Data ---
-        # Ensure all form fields are present
+       
+      
         form_data = {
             'College': int(request.form['College']),
             'City': int(request.form['City']),
@@ -41,13 +40,13 @@ def predict():
             'Graduation Marks', 'EXP (Month)', 'Role_Manager'
         ])
 
-        # --- Scale the features ---
+       
         scaled_features = scaler.transform(features)
 
-        # --- Make Prediction ---
+       
         prediction = model.predict(scaled_features)
         
-        # Format the prediction for display
+       
         output = f'{prediction[0]:,.2f}'
 
         return render_template('index.html', prediction_text=f'Predicted Salary (CTC): ₹ {output}')
