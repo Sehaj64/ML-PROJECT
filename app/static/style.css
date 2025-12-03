@@ -18,12 +18,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    text-align: center;
 }
 
 h1 {
     color: #4CAF50;
     margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .form-group {
@@ -69,6 +69,7 @@ h1 {
     background-color: #e8f5e9;
     border: 1px solid #c8e6c9;
     border-radius: 4px;
+    text-align: center;
 }
 
 .prediction h2 {

@@ -11,10 +11,7 @@ scaler = joblib.load('models/scaler.joblib')
 
 @app.route('/')
 def home():
-    # Get the list of plots
-    plot_dir = 'app/static'
-    plots = [url_for('static', filename=f) for f in os.listdir(plot_dir) if f.endswith('.png')]
-    return render_template('index.html', plots=plots)
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -36,11 +33,14 @@ def predict():
     # Make a prediction
     prediction = model.predict(scaled_features)
 
+    return render_template('index.html', prediction_text='Predicted Salary: ₹ {:.2f}'.format(prediction[0]))
+
+@app.route('/analysis')
+def analysis():
     # Get the list of plots
     plot_dir = 'app/static'
     plots = [url_for('static', filename=f) for f in os.listdir(plot_dir) if f.endswith('.png')]
-
-    return render_template('index.html', prediction_text='Predicted Salary: ₹ {:.2f}'.format(prediction[0]), plots=plots)
+    return render_template('analysis.html', plots=plots)
 
 if __name__ == '__main__':
     app.run(debug=True)

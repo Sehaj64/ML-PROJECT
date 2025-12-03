@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Analysis Plots</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .plots-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        .plot {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .plot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .plot h2 {
+            text-transform: capitalize;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .back-link {
+            display: block;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="plots-container">
+        <a href="{{ url_for('home') }}" class="back-link">← Back to Predictor</a>
+        <h1>Data Analysis Plots</h1>
+        {% for plot in plots %}
+            <div class="plot">
+                <h2>{{ plot.split('/')[-1].replace('_', ' ').replace('.png', '') }}</h2>
+                <img src="{{ plot }}" alt="Analysis Plot">
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

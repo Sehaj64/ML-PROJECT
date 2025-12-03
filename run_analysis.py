@@ -12,9 +12,9 @@ if not os.path.exists('plots'):
     os.makedirs('plots')
 
 # Read a CSV file into a DataFrame
-df = pd.read_csv("C:/Users/Preet/ML-PROJECT/data/ML case Study.csv")
-college = pd.read_csv("C:/Users/Preet/ML-PROJECT/data/Colleges.csv")
-cities = pd.read_csv("C:/Users/Preet/ML-PROJECT/data/cities.csv")
+df = pd.read_csv("data/ML case Study.csv")
+college = pd.read_csv("data/Colleges.csv")
+cities = pd.read_csv("data/cities.csv")
 
 # --- Data Preprocessing ---
 
