@@ -1,64 +1,46 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request, url_for
 import joblib
-import pandas as pd
+import numpy as np
 import os
 
 app = Flask(__name__)
 
-# Construct the absolute path to the model files
-basedir = os.path.abspath(os.path.dirname(__file__))
-model_path = os.path.join(basedir, '../models/random_forest_model.joblib')
-scaler_path = os.path.join(basedir, '../models/scaler.joblib')
+# Load the trained model and scaler
+model = joblib.load('models/random_forest_model.joblib')
+scaler = joblib.load('models/scaler.joblib')
 
-# Load the model and scaler
-model = joblib.load(model_path)
-scaler = joblib.load(scaler_path)
-
-
-@app.route('/', methods=['GET'])
+@app.route('/')
 def home():
-    return render_template('index.html')
-
+    # Get the list of plots
+    plot_dir = 'app/static'
+    plots = [url_for('static', filename=f) for f in os.listdir(plot_dir) if f.endswith('.png')]
+    return render_template('index.html', plots=plots)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    try:
-        # --- Get Form Data ---
-        # Ensure all form fields are present
-        form_data = {
-            'College': int(request.form['College']),
-            'City': int(request.form['City']),
-            'Previous CTC': float(request.form['Previous CTC']),
-            'Previous job change': int(request.form['Previous job change']),
-            'Graduation Marks': int(request.form['Graduation Marks']),
-            'EXP (Month)': int(request.form['EXP (Month)']),
-            'Role_Manager': int(request.form['Role'])
-        }
+    # Get the data from the form
+    college = int(request.form['college'])
+    city = int(request.form['city'])
+    role = int(request.form['role'])
+    previous_ctc = float(request.form['previous_ctc'])
+    previous_job_change = int(request.form['previous_job_change'])
+    graduation_marks = int(request.form['graduation_marks'])
+    exp_months = int(request.form['exp_months'])
 
-        # --- Create DataFrame for prediction ---
-        # The order of columns MUST match the order during training
-        features = pd.DataFrame([form_data], columns=[
-            'College', 'City', 'Previous CTC', 'Previous job change',
-            'Graduation Marks', 'EXP (Month)', 'Role_Manager'
-        ])
+    # Create a feature array for prediction
+    features = np.array([[college, city, previous_ctc, previous_job_change, graduation_marks, exp_months, role]])
 
-        # --- Scale the features ---
-        scaled_features = scaler.transform(features)
+    # Scale the features
+    scaled_features = scaler.transform(features)
 
-        # --- Make Prediction ---
-        prediction = model.predict(scaled_features)
+    # Make a prediction
+    prediction = model.predict(scaled_features)
 
-        # Format the prediction for display
-        output = f'{prediction[0]:,.2f}'
+    # Get the list of plots
+    plot_dir = 'app/static'
+    plots = [url_for('static', filename=f) for f in os.listdir(plot_dir) if f.endswith('.png')]
 
-        return render_template(
-            'index.html',
-            prediction_text=f'Predicted Salary (CTC): ₹ {output}'
-        )
+    return render_template('index.html', prediction_text='Predicted Salary: ₹ {:.2f}'.format(prediction[0]), plots=plots)
 
-    except Exception as e:
-        return render_template('index.html', prediction_text=f'Error: {e}')
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)

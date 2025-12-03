@@ -2,11 +2,10 @@ import pandas as pd
 import numpy as np
 import os
 
-# Create the data directory if it doesn't exist
 if not os.path.exists('data'):
     os.makedirs('data')
 
-# --- Generate ML case Study.csv ---
+
 num_samples = 1600
 roles = ['Executive', 'Manager']
 colleges = [
@@ -36,7 +35,7 @@ data = {
 df = pd.DataFrame(data)
 df.to_csv('data/ML case Study.csv', index=False)
 
-# --- Generate Colleges.csv ---
+
 tier1 = [
     'IIT Bombay', 'IIT Delhi', 'IIT Kharagpur', 'IIT Madras', 'IIT Kanpur',
     'IIT Roorkee', 'IIT Guwahati', 'IIIT Hyderabad',
@@ -69,7 +68,7 @@ colleges_df = pd.DataFrame({
 })
 colleges_df.to_csv('data/Colleges.csv', index=False)
 
-# --- Generate cities.csv ---
+
 metro_cities = [
     'Mumbai', 'Delhi', 'Kolkata', 'Chennai', 'Bangalore', 'Hyderabad'
 ]
