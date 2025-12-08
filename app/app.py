@@ -5,14 +5,20 @@ import os
 
 app = Flask(__name__)
 
+# Get the absolute path to the directory of the current script
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.join(APP_ROOT, '..', 'models')
+
 def get_model():
     if 'model' not in g:
-        g.model = joblib.load('../models/random_forest_model.joblib')
+        model_path = os.path.join(MODELS_DIR, 'random_forest_model.joblib')
+        g.model = joblib.load(model_path)
     return g.model
 
 def get_scaler():
     if 'scaler' not in g:
-        g.scaler = joblib.load('../models/scaler.joblib')
+        scaler_path = os.path.join(MODELS_DIR, 'scaler.joblib')
+        g.scaler = joblib.load(scaler_path)
     return g.scaler
 
 @app.route('/')
