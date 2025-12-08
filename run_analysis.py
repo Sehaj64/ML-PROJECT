@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -25,11 +24,11 @@ Tier3 = college["Tier 3"].tolist()
 
 for item in df.College:
     if item in Tier1:
-        df["College"].replace(item,3,inplace=True)
+        df["College"].replace(item, 3, inplace=True)
     elif item in Tier2:
-        df["College"].replace(item,2,inplace=True)
+        df["College"].replace(item, 2, inplace=True)
     elif item in Tier3:
-        df["College"].replace(item,1,inplace=True)
+        df["College"].replace(item, 1, inplace=True)
 
 # City
 metro = cities['Metrio City'].tolist()
@@ -37,9 +36,9 @@ non_metro_cities = cities['non-metro cities'].tolist()
 
 for item in df.City:
     if item in metro:
-        df['City'].replace(item,1,inplace=True)
+        df['City'].replace(item, 1, inplace=True)
     elif item in non_metro_cities:
-        df['City'].replace(item,0,inplace=True)
+        df['City'].replace(item, 0, inplace=True)
 
 # Role
 df = pd.get_dummies(df, drop_first=True)
@@ -78,7 +77,9 @@ plt.clf()
 X = df.loc[:, df.columns != 'CTC']
 y = df['CTC']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Linear Regression
 linear_reg = LinearRegression()
@@ -86,7 +87,7 @@ linear_reg.fit(X_train, y_train)
 linear_reg_pred = linear_reg.predict(X_test)
 
 print("Linear Regression:")
-print("r2_score:",r2_score(y_test, linear_reg_pred))
+print("r2_score:", r2_score(y_test, linear_reg_pred))
 print("MAE:", mean_absolute_error(y_test, linear_reg_pred))
 print("MSE:", mean_squared_error(y_test, linear_reg_pred))
 print("-" * 30)
@@ -97,7 +98,7 @@ ridge.fit(X_train, y_train)
 ridge_predict = ridge.predict(X_test)
 
 print("Ridge Regression:")
-print("r2_score:",r2_score(y_test, ridge_predict))
+print("r2_score:", r2_score(y_test, ridge_predict))
 print("MAE:", mean_absolute_error(y_test, ridge_predict))
 print("MSE:", mean_squared_error(y_test, ridge_predict))
 print("-" * 30)
@@ -108,9 +109,11 @@ lasso.fit(X_train, y_train)
 lasso_predict = lasso.predict(X_test)
 
 print("Lasso Regression:")
-print("r2_score:",r2_score(y_test, lasso_predict))
+print("r2_score:", r2_score(y_test, lasso_predict))
 print("MAE:", mean_absolute_error(y_test, lasso_predict))
 print("MSE:", mean_squared_error(y_test, lasso_predict))
 print("-" * 30)
 
-print("Analysis complete. All plots have been saved to the 'plots' directory.")
+print(
+    "Analysis complete. All plots have been saved to the 'plots' directory."
+)

@@ -5,6 +5,7 @@ import os
 if not os.path.exists('data'):
     os.makedirs('data')
 
+np.random.seed(42)
 
 num_samples = 1600
 roles = ['Executive', 'Manager']
@@ -26,11 +27,11 @@ data = {
     'College': np.random.choice(colleges, num_samples),
     'City': np.random.choice(cities, num_samples),
     'Role': np.random.choice(roles, num_samples, p=[0.8, 0.2]),
-    'Previous CTC': np.random.uniform(40000, 75000, num_samples).round(2),
+    'Previous CTC': np.random.uniform(30000, 100000, num_samples).round(2),
     'Previous job change': np.random.randint(1, 5, num_samples),
     'Graduation Marks': np.random.randint(35, 86, num_samples),
     'EXP (Month)': np.random.randint(18, 65, num_samples),
-    'CTC': np.random.uniform(55000, 120000, num_samples).round(2)
+    'CTC': np.random.uniform(40000, 150000, num_samples).round(2)
 }
 df = pd.DataFrame(data)
 df.to_csv('data/ML case Study.csv', index=False)
@@ -82,7 +83,7 @@ metro_cities.extend([np.nan] * (max_len - len(metro_cities)))
 non_metro_cities.extend([np.nan] * (max_len - len(non_metro_cities)))
 
 cities_df = pd.DataFrame({
-    'Metrio City': metro_cities,
+    'Metro City': metro_cities,
     'non-metro cities': non_metro_cities
 })
 cities_df.to_csv('data/cities.csv', index=False)

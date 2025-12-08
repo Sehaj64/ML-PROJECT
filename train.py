@@ -28,7 +28,7 @@ df['College'] = df['College'].replace(college_tier_map)
 
 
 city_type_map = {}
-for city_name in cities["Metrio City"].dropna():
+for city_name in cities["Metro City"].dropna():
     city_type_map[city_name] = 1
 for city_name in cities["non-metro cities"].dropna():
     city_type_map[city_name] = 0
@@ -44,7 +44,9 @@ X = df.drop('CTC', axis=1)
 y = df['CTC']
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 
 print("Scaling features...")
@@ -54,12 +56,16 @@ X_test_scaled = scaler.transform(X_test)
 
 
 print("Training Random Forest model...")
+
+
 # Using the best parameters found from GridSearchCV in the notebook
 model = RandomForestRegressor(
     n_jobs=-1,
     max_features=4,
     min_samples_split=2
 )
+
+
 model.fit(X_train_scaled, y_train)
 
 
