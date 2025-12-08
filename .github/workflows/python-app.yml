@@ -40,6 +40,9 @@ jobs:
     - name: Train model
       run: |
         python train.py
+    - name: List files
+      run: |
+        ls -R
     - name: Test with pytest
       run: |
         pytest
