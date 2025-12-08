@@ -4,14 +4,14 @@ from app.app import app
 
 @pytest.fixture
 def client():
-    app.config['TESTING'] = True
+    app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
 
 
 def test_home(client):
     """Test the home page."""
-    rv = client.get('/')
+    rv = client.get("/")
     assert rv.status_code == 200
 
 
@@ -26,6 +26,6 @@ def test_predict(client):
         'exp_months': '24',
         'role': '1'
     }
-    rv = client.post('/predict', data=data)
+    rv = client.post("/predict", data=data)
     assert rv.status_code == 200
     assert b'Predicted Monthly Salary' in rv.data
