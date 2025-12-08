@@ -7,7 +7,11 @@ import os
 app = Flask(__name__)
 
 # Load the trained model and scaler
+
 model = joblib.load('../models/random_forest_model.joblib')
+
+def get_model():
+    return joblib.load('../models/random_forest_model.joblib')
 scaler = joblib.load('../models/scaler.joblib')
 
 
