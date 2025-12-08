@@ -1,9 +1,28 @@
 import pytest
 from app.app import app
+import joblib
+import numpy as np
+
+
+class DummyModel:
+    def predict(self, data):
+        return np.array([100000])
+
+
+class DummyScaler:
+    def transform(self, data):
+        return data
 
 
 @pytest.fixture
-def client():
+def client(monkeypatch):
+    def dummy_load(path):
+        if 'model' in path:
+            return DummyModel()
+        elif 'scaler' in path:
+            return DummyScaler()
+
+    monkeypatch.setattr(joblib, 'load', dummy_load)
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
