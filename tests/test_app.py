@@ -1,6 +1,5 @@
 import pytest
 import numpy as np
-from app.app import app
 
 
 class DummyModel:
@@ -17,7 +16,7 @@ class DummyScaler:
 def client(monkeypatch):
     # Import inside fixture to avoid module-level import errors during collection
     from app.app import app
-    
+
     def dummy_get_model():
         return DummyModel()
 

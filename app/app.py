@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, g
 import joblib
 import numpy as np
 import os
-import pandas as pd  # Import pandas for potential data loading
 
 app = Flask(__name__)
 
@@ -40,11 +39,11 @@ def predict():
         # Get numerical form data directly, consistent with ML-PROJECT
         college_tier = int(request.form['college_tier'])
         city_score = int(request.form['city_score'])
-        role_manager = int(request.form['role_manager']) # 0 for Executive, 1 for Manager
+        role_manager = int(request.form['role_manager'])  # 0 for Executive, 1 for Manager
         previous_ctc = float(request.form['previous_ctc'])
         previous_job_change = int(request.form['previous_job_change'])
         graduation_marks = int(request.form['graduation_marks'])
-        exp_months = int(request.form['exp_months']) # Directly use months
+        exp_months = int(request.form['exp_months'])  # Directly use months
 
     except (ValueError, KeyError) as e:
         return render_template(
