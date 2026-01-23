@@ -1,5 +1,14 @@
 import pytest
 import numpy as np
+import sys
+import os
+
+print(f"DEBUG: sys.path: {sys.path}")
+try:
+    import flask
+    print(f"DEBUG: Flask imported successfully from {flask.__file__}")
+except ImportError as e:
+    print(f"DEBUG: Failed to import flask: {e}")
 
 
 class DummyModel:
