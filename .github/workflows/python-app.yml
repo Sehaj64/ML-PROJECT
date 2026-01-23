@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +39,5 @@ jobs:
         ls -R
     - name: Test with pytest
       run: |
-     pip install -r requirements.txt
-     pip install flask
         # Use python -m pytest to ensure current directory is in sys.path
         python -m pytest
