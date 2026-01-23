@@ -5,5 +5,5 @@ scikit-learn
 joblib
 streamlit
 flake8
-Flask
+flask
 pytest
