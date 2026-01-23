@@ -1,6 +1,6 @@
 pandas
-numpy==1.26.3
+numpy<2.0.0
 seaborn
-scikit-learn==1.6.0
+scikit-learn
 joblib
 streamlit
