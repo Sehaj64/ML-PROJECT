@@ -6,3 +6,4 @@ joblib
 streamlit
 flake8
 Flask
+pytest
