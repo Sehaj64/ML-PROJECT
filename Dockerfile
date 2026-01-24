@@ -14,4 +14,4 @@
     EXPOSE 5000
    
     # Run the main application directly
-    CMD ["python", "app/app.py"]
+    CMD ["python", "salary_app/app.py"]
