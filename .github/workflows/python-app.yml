@@ -31,7 +31,7 @@ jobs:
         python -m pip list
     - name: Run Manual Test
       run: |
-        python manual_test.py
+        python manual_check.py
     - name: Train model
       run: |
         python train.py
