@@ -24,7 +24,7 @@ class DummyScaler:
 @pytest.fixture
 def client(monkeypatch):
     # Import inside fixture to avoid module-level import errors during collection
-    from app.app import app
+    from salary_app.app import app
 
     def dummy_get_model():
         return DummyModel()
@@ -32,8 +32,8 @@ def client(monkeypatch):
     def dummy_get_scaler():
         return DummyScaler()
 
-    monkeypatch.setattr('app.app.get_model', dummy_get_model)
-    monkeypatch.setattr('app.app.get_scaler', dummy_get_scaler)
+    monkeypatch.setattr('salary_app.app.get_model', dummy_get_model)
+    monkeypatch.setattr('salary_app.app.get_scaler', dummy_get_scaler)
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
