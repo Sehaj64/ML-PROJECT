@@ -12,9 +12,9 @@ except ImportError:
     sys.exit(1)
 
 try:
-    print("Importing app.app...")
-    from app.app import app
-    print("app.app imported successfully.")
+    print("Importing salary_app.app...")
+    from salary_app.app import app
+    print("salary_app.app imported successfully.")
     
     app.config['TESTING'] = True
     client = app.test_client()

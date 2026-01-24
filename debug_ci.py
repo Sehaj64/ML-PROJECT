@@ -20,10 +20,10 @@ except Exception as e:
 print("\n--- CHECKING APP IMPORT ---")
 try:
     # Mimic what pytest does / what test_app.py does
-    import app.app
-    print(f"SUCCESS: Imported app.app from {app.app.__file__}")
+    import salary_app.app
+    print(f"SUCCESS: Imported salary_app.app from {salary_app.app.__file__}")
 except ImportError as e:
-    print(f"FAILURE: Could not import app.app. Error: {e}")
+    print(f"FAILURE: Could not import salary_app.app. Error: {e}")
     import traceback
     traceback.print_exc()
 except Exception as e:
